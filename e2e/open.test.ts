@@ -1,11 +1,9 @@
 import assert from "assert";
 import puppeteer from "puppeteer";
-import path from "path";
-import express from "express";
 import { Server } from "http";
 import { AddressInfo } from "net";
+import { startServer } from "./_helpers";
 
-console.log("start e2e");
 jest.retryTimes(3);
 jest.setTimeout(30 * 1000);
 
@@ -15,9 +13,7 @@ let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
 beforeAll(async () => {
-  const app = express();
-  app.use(express.static(path.join(__dirname, "../dist")));
-  await new Promise<Server>(r => (server = app.listen(0, r)));
+  server = await startServer();
   port = (server.address() as AddressInfo).port;
   browser = await puppeteer.launch();
 });
