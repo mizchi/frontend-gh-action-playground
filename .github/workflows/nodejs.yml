@@ -5,15 +5,15 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: circleci/node:jessie-browsers
-      # env:
-      #   NODE_ENV: development
-      # ports:
-      # - 80
-      # volumes:
-      # - my_docker_volume:/volume_mount
-      # options: --cpus 1
+    # container:
+    #   image: circleci/node:jessie-browsers
+    # env:
+    #   NODE_ENV: development
+    # ports:
+    # - 80
+    # volumes:
+    # - my_docker_volume:/volume_mount
+    # options: --cpus 1
     strategy:
       matrix:
         node-version: [12.x]
@@ -33,6 +33,9 @@ jobs:
       - name: typecheck
         run: |
           yarn typecheck
+      - name: headless chrome
+        run: |
+          npm install -g chromedriver
       - name: test
         run: |
           yarn test
