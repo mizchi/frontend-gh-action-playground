@@ -7,6 +7,7 @@ import { AddressInfo } from "net";
 
 console.log("start e2e");
 jest.retryTimes(3);
+jest.setTimeout(20 * 1000);
 
 let server: Server;
 let port: number;

@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "typecheck": "tsc -p . --noEmit",
-    "lint": "eslint src --ext='.ts,.tsx,.js'",
+    "lint": "eslint src e2e --ext='.ts,.tsx,.js'",
+    "format": "prettier --write '{src,e2e}/**/*.{ts,tsx,js}'",
     "test": "run-s test:*",
     "test:unittest": "jest src --coverage --max-cpu=4",
     "test:e2e": "jest e2e --max-cpu=1"
