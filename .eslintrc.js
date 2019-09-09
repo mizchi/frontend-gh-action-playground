@@ -1,8 +1,5 @@
 module.exports = {
-  extends: [
-    "eslint:recommended", // お好きなESLint設定をここに
-    "plugin:prettier/recommended"
-  ],
+  extends: ["eslint:recommended", "plugin:prettier/recommended"],
   env: {
     browser: true,
     node: true,

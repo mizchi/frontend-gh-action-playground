@@ -5,15 +5,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    # container:
-    #   image: circleci/node:jessie-browsers
-    # env:
-    #   NODE_ENV: development
-    # ports:
-    # - 80
-    # volumes:
-    # - my_docker_volume:/volume_mount
-    # options: --cpus 1
     strategy:
       matrix:
         node-version: [12.x]
@@ -33,9 +24,9 @@ jobs:
       - name: typecheck
         run: |
           yarn typecheck
-      - name: test
+      - name: unittest
         run: |
-          yarn test
-      - name: test
+          yarn test:unittest
+      - name: e2e
         run: |
-          yarn test-e2e
+          yarn test:e2e
