@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --max-cpu=4",
+    "test-e2e": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' yarn ts-node -T script/run-puppeteer.ts",
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "typecheck": "tsc -p . --noEmit",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.4",
+    "@types/puppeteer": "^1.19.1",
     "@types/webpack": "^4.39.1",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
     "@typescript-eslint/parser": "^2.1.0",
@@ -23,8 +25,10 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "puppeteer": "^1.19.0",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
     "typescript": "^3.6.2",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",

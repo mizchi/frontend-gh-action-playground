@@ -33,9 +33,9 @@ jobs:
       - name: typecheck
         run: |
           yarn typecheck
-      - name: headless chrome
-        run: |
-          npm install -g chromedriver
       - name: test
         run: |
           yarn test
+      - name: test
+        run: |
+          yarn test-e2e
