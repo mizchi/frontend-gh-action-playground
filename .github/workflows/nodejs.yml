@@ -3,18 +3,17 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install & build
+          node-version: 12
+      - name: install
         run: |
           yarn install
-          yarn build
       - name: lint
         run: |
           yarn lint
@@ -24,6 +23,18 @@ jobs:
       - name: unittest
         run: |
           yarn test:unittest
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install & build
+        run: |
+          yarn install
+          yarn build
       - name: e2e
         run: |
           yarn test:e2e
