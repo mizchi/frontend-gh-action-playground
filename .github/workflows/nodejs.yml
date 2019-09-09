@@ -3,8 +3,6 @@ name: Node CI
 on: [push]
 
 jobs:
-  e2e:
-
   build:
     runs-on: ubuntu-latest
     steps:
