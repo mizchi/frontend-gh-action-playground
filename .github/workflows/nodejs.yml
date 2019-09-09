@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: node:12-browser
     strategy:
       matrix:
         node-version: [12.x]
@@ -24,3 +24,6 @@ jobs:
       - name: typecheck
         run: |
           yarn typecheck
+      - name: test
+        run: |
+          yarn test
