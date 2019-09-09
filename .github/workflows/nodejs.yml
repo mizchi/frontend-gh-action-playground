@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: node:jessie-browsers
+      image: circleci/node:jessie-browsers
       # env:
       #   NODE_ENV: development
       # ports:
