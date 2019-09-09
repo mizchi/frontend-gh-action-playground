@@ -5,6 +5,7 @@ import express from "express";
 import { Server } from "http";
 import { AddressInfo } from "net";
 
+console.log("start e2e");
 jest.retryTimes(3);
 
 let server: Server;
