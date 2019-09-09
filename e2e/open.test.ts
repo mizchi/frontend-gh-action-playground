@@ -19,13 +19,21 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  page && page.isClosed() && (await page.close());
+  page && !page.isClosed() && (await page.close());
   browser && browser.isConnected() && (await browser.close());
   server.close();
 });
 
 afterEach(async () => {
-  page && page.isClosed() && (await page.close());
+  page && !page.isClosed() && (await page.close());
+});
+
+it("Title is 'test'", async () => {
+  page = await browser.newPage();
+  await page.goto(`http://localhost:${port}/`, {
+    waitUntil: "domcontentloaded"
+  });
+  assert.equal(await page.title(), "test");
 });
 
 it("Root content is 'hello'", async () => {
