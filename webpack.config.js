@@ -1,6 +1,6 @@
 const path = require("path");
 const HTMLPlugin = require("html-webpack-plugin");
-module.exports = (_env: any, _argv: any) => ({
+module.exports = (_env, _argv) => ({
   resolve: {
     extensions: [".js", ".ts"]
   },
