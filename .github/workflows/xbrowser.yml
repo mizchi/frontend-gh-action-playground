@@ -1,0 +1,58 @@
+name: xbrowser
+
+on: [push]
+
+jobs:
+  e2e-ie:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: warrenbuckley/Setup-Nuget@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+      - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
+      - run: yarn jest e2e/runWithSelenium.test.ts
+        env:
+          BROWSER: ie
+  e2e-safari:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+      - run: |
+          sudo safaridriver --enable
+          safaridriver -p 0 &
+      - run: yarn jest e2e/runWithSelenium.test.ts
+        env:
+          BROWSER: safari
+  # e2e-firefox:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - run: yarn install
+  #     - run: brew install geckodriver
+  #     - run: node scratch.js
+  #       env:
+  #         BROWSER: firefox
+  # e2e-chrome:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - run: yarn install
+  #     - run: brew cask install chromedriver
+  #     - run: node scratch.js
+  #       env:
+  #         BROWSER: chrome
