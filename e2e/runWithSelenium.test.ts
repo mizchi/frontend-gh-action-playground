@@ -35,14 +35,14 @@ beforeAll(async () => {
       break;
     }
     case "firefox": {
-      const driverPath = path.join(__dirname, "../node_modules/.bin");
-      process.env.PATH = `${process.env.PATH} ${driverPath}`;
+      require("geckodriver");
       capabilities = webdriver.Capabilities.firefox();
       break;
     }
     case "chrome": {
-      const driverPath = path.join(__dirname, "../node_modules/.bin");
-      process.env.PATH = `${process.env.PATH} ${driverPath}`;
+      require("chromedriver");
+      // const driverPath = path.join(__dirname, "../node_modules/.bin");
+      // process.env.PATH = `${process.env.PATH} ${driverPath}`;
       capabilities = webdriver.Capabilities.chrome();
       capabilities.set("chromeOptions", {
         args: [
