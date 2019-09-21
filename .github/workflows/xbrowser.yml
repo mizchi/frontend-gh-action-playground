@@ -33,7 +33,7 @@ jobs:
         env:
           BROWSER: safari
   e2e-firefox:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -45,7 +45,7 @@ jobs:
         env:
           BROWSER: firefox
   e2e-chrome:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
