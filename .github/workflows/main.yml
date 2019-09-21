@@ -23,7 +23,7 @@ jobs:
       - name: unittest
         run: |
           yarn test:unittest
-  e2e-headless-chrome:
+  test-with-puppeteer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
