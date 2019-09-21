@@ -41,8 +41,6 @@ beforeAll(async () => {
     }
     case "chrome": {
       require("chromedriver");
-      // const driverPath = path.join(__dirname, "../node_modules/.bin");
-      // process.env.PATH = `${process.env.PATH} ${driverPath}`;
       capabilities = webdriver.Capabilities.chrome();
       capabilities.set("chromeOptions", {
         args: [

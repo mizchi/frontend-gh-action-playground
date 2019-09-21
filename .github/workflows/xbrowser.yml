@@ -33,7 +33,7 @@ jobs:
         env:
           BROWSER: safari
   e2e-firefox:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -41,12 +41,11 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
-      - run: npm i -g geckodriver
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: firefox
   e2e-chrome:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -54,7 +53,6 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
-      - run: npm i -g chromedriver
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: chrome
