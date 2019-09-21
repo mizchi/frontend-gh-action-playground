@@ -30,15 +30,17 @@ beforeAll(async () => {
       capabilities.set("ignoreZoomSetting", true);
       break;
     }
-    case "firefox": {
-      capabilities = webdriver.Capabilities.firefox();
-      break;
-    }
     case "safari": {
       capabilities = webdriver.Capabilities.safari();
       break;
     }
+    case "firefox": {
+      require("geckodriver");
+      capabilities = webdriver.Capabilities.firefox();
+      break;
+    }
     case "chrome": {
+      require("chromedriver");
       capabilities = webdriver.Capabilities.chrome();
       capabilities.set("chromeOptions", {
         args: [
