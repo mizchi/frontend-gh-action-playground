@@ -30,15 +30,19 @@ beforeAll(async () => {
       capabilities.set("ignoreZoomSetting", true);
       break;
     }
-    case "firefox": {
-      capabilities = webdriver.Capabilities.firefox();
-      break;
-    }
     case "safari": {
       capabilities = webdriver.Capabilities.safari();
       break;
     }
+    case "firefox": {
+      const driverPath = path.join(__dirname, "../node_modules/.bin");
+      process.env.PATH = `${process.env.PATH} ${driverPath}`;
+      capabilities = webdriver.Capabilities.firefox();
+      break;
+    }
     case "chrome": {
+      const driverPath = path.join(__dirname, "../node_modules/.bin");
+      process.env.PATH = `${process.env.PATH} ${driverPath}`;
       capabilities = webdriver.Capabilities.chrome();
       capabilities.set("chromeOptions", {
         args: [
