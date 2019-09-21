@@ -1,4 +1,4 @@
-name: Node CI
+name: Main
 
 on: [push]
 
@@ -23,7 +23,7 @@ jobs:
       - name: unittest
         run: |
           yarn test:unittest
-  e2e:
+  e2e-headless-chrome:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -37,4 +37,4 @@ jobs:
           yarn build
       - name: e2e
         run: |
-          yarn test:e2e
+          yarn test:e2e-puppeteer
