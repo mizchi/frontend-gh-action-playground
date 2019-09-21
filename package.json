@@ -26,7 +26,7 @@
     "@types/webpack": "^4.39.1",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
     "@typescript-eslint/parser": "^2.1.0",
-    "chromedriver": "^77.0.0",
+    "chromedriver": "76",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-prettier": "^3.1.0",
