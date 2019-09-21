@@ -41,6 +41,7 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
+      - run: npm i -g geckodriver
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: firefox
@@ -53,6 +54,7 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
+      - run: npm i -g chromedriver
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: chrome
