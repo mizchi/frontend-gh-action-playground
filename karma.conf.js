@@ -35,6 +35,12 @@ module.exports = function(config) {
           "process.env.test": true
         })
       ]
+    },
+    customLaunchers: {
+      ie_no_addons: {
+        base: "IE",
+        flags: ["-extoff"]
+      }
     }
   });
 };
