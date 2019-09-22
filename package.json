@@ -34,7 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "babel-loader": "^8.0.6",
-    "chromedriver": "77.0.0",
+    "chromedriver": "76",
     "cross-env": "^6.0.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
