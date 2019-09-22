@@ -1,7 +1,6 @@
 import assert from "assert";
 import { add } from "../add";
 
-it("example test", () => {
-  assert.ok(true);
+it("jasmine test example", () => {
   assert.equal(add(1, 2), 3);
 });

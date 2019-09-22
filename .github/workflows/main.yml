@@ -7,34 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: install
-        run: |
-          yarn install
-      - name: lint
-        run: |
-          yarn lint
-      - name: typecheck
-        run: |
-          yarn typecheck
-      - name: unittest
-        run: |
-          yarn test:unittest
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn typecheck
+      - run: yarn test:unittest
   test-with-puppeteer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: install & build
-        run: |
+      - run: |
           yarn install
           yarn build
-      - name: e2e
-        run: |
-          yarn test:e2e-puppeteer
+      - run: yarn test:e2e-puppeteer

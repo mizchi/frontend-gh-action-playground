@@ -14,9 +14,8 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
-      - run: yarn jest e2e/runWithSelenium.test.ts
-        env:
-          BROWSER: ie
+      - run: yarn test:karma:ie
+      - run: yarn test:e2e:ie
   e2e-safari:
     runs-on: macos-latest
     steps:
@@ -29,9 +28,8 @@ jobs:
       - run: |
           sudo safaridriver --enable
           safaridriver -p 0 &
-      - run: yarn jest e2e/runWithSelenium.test.ts
-        env:
-          BROWSER: safari
+      # - run: yarn test:karma:safari
+      - run: yarn test:e2e:safari
   e2e-firefox:
     runs-on: windows-latest
     steps:
@@ -41,9 +39,8 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
-      - run: yarn jest e2e/runWithSelenium.test.ts
-        env:
-          BROWSER: firefox
+      - run: yarn test:karma:firefox
+      - run: yarn test:e2e:firefox
   e2e-chrome:
     runs-on: windows-latest
     steps:
@@ -53,6 +50,5 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
-      - run: yarn jest e2e/runWithSelenium.test.ts
-        env:
-          BROWSER: chrome
+      - run: yarn test:karma:chrome
+      - run: yarn test:e2e:chrome
