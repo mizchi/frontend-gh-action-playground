@@ -14,6 +14,7 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
+      - run: yarn karma start --single-run --browsers ie_no_addons
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: ie
@@ -29,6 +30,7 @@ jobs:
       - run: |
           sudo safaridriver --enable
           safaridriver -p 0 &
+      # - run: yarn test:karma --browsers Safari # モーダル操作が要求されて動かない
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: safari
@@ -41,6 +43,7 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
+      - run: yarn karma start --single-run --browsers Firefox
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: firefox
@@ -53,6 +56,7 @@ jobs:
           node-version: 12
       - run: yarn install
       - run: yarn build
+      - run: yarn karma start --single-run --browsers ChromeHeadless
       - run: yarn jest e2e/runWithSelenium.test.ts
         env:
           BROWSER: chrome
