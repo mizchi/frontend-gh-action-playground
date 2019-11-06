@@ -37,20 +37,32 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - uses: actions/cache@v1
+      - name: Use node_modules cache
+        uses: actions/cache@v1
         with:
           path: node_modules
           key: xbrowser-yarn-${{ hashFiles('**\yarn.lock') }}
           restore-keys: |
             xbrowser-yarn-
-      - uses: actions/cache@v1
+      - name: Use dist cache
+        uses: actions/cache@v1
         with:
           path: dist
           key: dist-${GITHUB_SHA}
           restore-keys: |
             dist-${GITHUB_SHA}
-      - uses: warrenbuckley/Setup-Nuget@v1
-      - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
+      # For IE Webdriver
+      - name: Cache IEDriver
+        uses: actions/cache@v1
+        id: iedriver-cache
+        with:
+          path: Selenium.WebDriver.IEDriver.3.150.0
+          key: IEDriver.3.150.0
+      - if: matrix.browser == 'ie'
+        uses: warrenbuckley/Setup-Nuget@v1
+      - if: matrix.browser == 'ie' && steps.iedriver-cache.outputs.cache-hit != 'true'
+        run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
+      # Run
       - run: yarn test:karma:${{ matrix.browser }}
       - run: yarn test:e2e:${{ matrix.browser }}
 
