@@ -10,13 +10,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - uses: actions/cache@v1
+      - name: cache node_modules
+        uses: actions/cache@v1
         with:
           path: node_modules
-          key: xbrowser-yarn-${{ hashFiles('yarn.lock') }}
+          key: xbrowser-yarn-${{ hashFiles('**\yarn.lock') }}
           restore-keys: |
             xbrowser-yarn-
-      - uses: actions/cache@v1
+      - name: cache dist
+        uses: actions/cache@v1
         with:
           path: dist
           key: dist-${GITHUB_SHA}
@@ -38,7 +40,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: node_modules
-          key: xbrowser-yarn-${{ hashFiles('yarn.lock') }}
+          key: xbrowser-yarn-${{ hashFiles('**\yarn.lock') }}
           restore-keys: |
             xbrowser-yarn-
       - uses: actions/cache@v1
