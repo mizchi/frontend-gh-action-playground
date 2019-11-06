@@ -16,20 +16,6 @@ jobs:
       - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
       - run: yarn test:karma:ie
       - run: yarn test:e2e:ie
-  e2e-safari:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: yarn install
-      - run: yarn build
-      - run: |
-          sudo safaridriver --enable
-          safaridriver -p 0 &
-      # - run: yarn test:karma:safari
-      - run: yarn test:e2e:safari
   e2e-firefox:
     runs-on: windows-latest
     steps:
@@ -52,3 +38,18 @@ jobs:
       - run: yarn build
       - run: yarn test:karma:chrome
       - run: yarn test:e2e:chrome
+  # does not work: sudo safaridriver --enable
+  # e2e-safari:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - run: yarn install
+  #     - run: yarn build
+  #     - run: |
+  #         sudo safaridriver --enable
+  #         safaridriver -p 0 &
+  #     # - run: yarn test:karma:safari
+  #     - run: yarn test:e2e:safari

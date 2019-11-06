@@ -1,5 +1,5 @@
 {
-  "name": "try-gh-action",
+  "name": "action-playground",
   "version": "1.0.0",
   "main": "index.js",
   "author": "mizchi <miz404@gmail.com>",
@@ -12,7 +12,6 @@
     "format": "prettier --write '{src,e2e}/**/*.{ts,tsx,js}'",
     "test": "run-s test:*",
     "test:unittest": "jest src --coverage --max-cpu=4",
-    "test:e2e-puppeteer": "jest e2e/runWithPuppeteer.test.ts --max-cpu=1",
     "test:e2e:ie": "cross-env BROWSER=ie jest e2e/runWithSelenium.test.ts",
     "test:e2e:chrome": "cross-env BROWSER=chrome jest e2e/runWithSelenium.test.ts",
     "test:e2e:firefox": "cross-env BROWSER=firefox jest e2e/runWithSelenium.test.ts",
