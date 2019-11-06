@@ -3,41 +3,135 @@ name: xbrowser
 on: [push]
 
 jobs:
-  e2e-ie:
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          restore-keys: |
+            xbrowser-yarn-
+      - uses: actions/cache@v1
+        with:
+          path: dist
+          key: dist-${GITHUB_SHA}
+          restore-keys: |
+            dist-${GITHUB_SHA}
+      - run: yarn install
+      - run: yarn build
+
+  e2e-matrix:
+    needs: [build]
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        browser: [ie, firefox, chrome]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          restore-keys: |
+            xbrowser-yarn-
+      - uses: actions/cache@v1
+        with:
+          path: dist
+          key: dist-${GITHUB_SHA}
+          restore-keys: |
+            dist-${GITHUB_SHA}
       - uses: warrenbuckley/Setup-Nuget@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: yarn install
-      - run: yarn build
       - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
-      - run: yarn test:karma:ie
-      - run: yarn test:e2e:ie
-  e2e-firefox:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
       - run: yarn install
-      - run: yarn build
-      - run: yarn test:karma:firefox
-      - run: yarn test:e2e:firefox
-  e2e-chrome:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: yarn install
-      - run: yarn build
-      - run: yarn test:karma:chrome
-      - run: yarn test:e2e:chrome
+      - run: yarn test:karma:${{ matrix.browser }}
+      - run: yarn test:e2e:${{ matrix.browser }}
+
+  # e2e-ie:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+  #         restore-keys: |
+  #           xbrowser-yarn-
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: dist
+  #         key: dist-${GITHUB_SHA}
+  #         restore-keys: |
+  #           dist-${GITHUB_SHA}
+  #     - run: yarn install
+  #     - uses: warrenbuckley/Setup-Nuget@v1
+  #     - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
+  #     - run: yarn test:karma:ie
+  #     - run: yarn test:e2e:ie
+
+  # e2e-firefox:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+  #         restore-keys: |
+  #           xbrowser-yarn-
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: dist
+  #         key: dist-${GITHUB_SHA}
+  #         restore-keys: |
+  #           dist-${GITHUB_SHA}
+  #     - run: yarn install
+  #     - run: yarn test:karma:firefox
+  #     - run: yarn test:e2e:firefox
+
+  # e2e-chrome:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+  #         restore-keys: |
+  #           xbrowser-yarn-
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: dist
+  #         key: dist-${GITHUB_SHA}
+  #         restore-keys: |
+  #           dist-${GITHUB_SHA}
+  #     - run: yarn install
+  #     - run: yarn test:karma:chrome
+  #     - run: yarn test:e2e:chrome
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+  #         restore-keys: |
+  #           xbrowser-yarn-
+
+
   # does not work: sudo safaridriver --enable
   # e2e-safari:
   #   runs-on: macos-latest
@@ -46,8 +140,19 @@ jobs:
   #     - uses: actions/setup-node@v1
   #       with:
   #         node-version: 12
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/yarn
+  #         key: xbrowser-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+  #         restore-keys: |
+  #           xbrowser-yarn-
+  #     - uses: actions/cache@v1
+  #       with:
+  #         path: dist
+  #         key: dist-${GITHUB_SHA}
+  #         restore-keys: |
+  #           dist-${GITHUB_SHA}
   #     - run: yarn install
-  #     - run: yarn build
   #     - run: |
   #         sudo safaridriver --enable
   #         safaridriver -p 0 &

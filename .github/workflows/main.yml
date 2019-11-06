@@ -14,14 +14,14 @@ jobs:
       - run: yarn lint
       - run: yarn typecheck
       - run: yarn test:unittest
-  test-with-puppeteer:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: |
-          yarn install
-          yarn build
-      - run: yarn test:e2e-puppeteer
+  # test-with-puppeteer:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #     - run: |
+  #         yarn install
+  #         yarn build
+  #     - run: yarn test:e2e-puppeteer
