@@ -12,8 +12,8 @@ jobs:
           node-version: 12
       - uses: actions/cache@v1
         with:
-          path: ~/.cache/yarn
-          key: xbrowser-yarn-${{ hashFiles(format('{0}\{1}', github.workspace, 'yarn.lock')) }}
+          path: node_modules
+          key: xbrowser-yarn-${{ hashFiles('yarn.lock')) }}
           restore-keys: |
             xbrowser-yarn-
       - uses: actions/cache@v1
@@ -24,7 +24,6 @@ jobs:
             dist-${GITHUB_SHA}
       - run: yarn install
       - run: yarn build
-
   e2e-matrix:
     needs: [build]
     runs-on: windows-latest
@@ -38,8 +37,8 @@ jobs:
           node-version: 12
       - uses: actions/cache@v1
         with:
-          path: ~/.cache/yarn
-          key: xbrowser-yarn-${{ hashFiles(format('{0}\{1}', github.workspace, 'yarn.lock')) }}
+          path: node_modules
+          key: xbrowser-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             xbrowser-yarn-
       - uses: actions/cache@v1
@@ -50,7 +49,6 @@ jobs:
             dist-${GITHUB_SHA}
       - uses: warrenbuckley/Setup-Nuget@v1
       - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.0
-      - run: yarn install
       - run: yarn test:karma:${{ matrix.browser }}
       - run: yarn test:e2e:${{ matrix.browser }}
 
